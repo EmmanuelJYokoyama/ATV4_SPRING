@@ -13,11 +13,4 @@ public class CredencialCodigoBarra extends Credencial {
 	@Column(nullable = false, unique = true)
 	private double codigo;
 
-	public double getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(double codigo) {
-		this.codigo = codigo;
-	}
 }

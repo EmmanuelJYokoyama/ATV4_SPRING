@@ -27,28 +27,4 @@ public class Documento extends RepresentationModel<Documento>{
 	@Column(unique = true, nullable = false)
 	private String numero;
 
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public TipoDocumento getTipo() {
-		return tipo;
-	}
-	public void setTipo(TipoDocumento tipo) {
-		this.tipo = tipo;
-	}
-	public Date getDataEmissao() {
-		return dataEmissao;
-	}
-	public void setDataEmissao(Date dataEmissao) {
-		this.dataEmissao = dataEmissao;
-	}
-	public String getNumero() {
-		return numero;
-	}
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
 }
