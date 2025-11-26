@@ -30,19 +30,25 @@ public class Seguranca extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private ProvedorJwt provedorJwt;
 
-	private static final String[] rotasPublicas = { "/login", "/cadastrar-usuario", "/credencial-usuario" };
+	private static final String[] rotasPublicas = {
+        "/login", "/cadastrar-usuario", "/credencial-usuario",
+        // Swagger/OpenAPI
+        "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html"
+    };
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable();
+        http.cors().and().csrf().disable();
 
-		http.authorizeHttpRequests().antMatchers(rotasPublicas).permitAll().anyRequest().authenticated();
+        http.authorizeHttpRequests()
+            .antMatchers(rotasPublicas).permitAll()
+            .anyRequest().authenticated();
 
-		http.addFilter(new Autenticador(authenticationManager(), provedorJwt));
-		http.addFilter(new Autorizador(authenticationManager(), provedorJwt, servico));
+        http.addFilter(new Autenticador(authenticationManager(), provedorJwt));
+        http.addFilter(new Autorizador(authenticationManager(), provedorJwt, servico));
 
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-	}
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder autenticador) throws Exception {
