@@ -21,19 +21,7 @@ git clone https://github.com/EmmanuelJYokoyama/ATV4_SPRING.git
 cd automanager
 ```
 
-### 2) Configure `application.properties`
-Arquivo: `src/main/resources/application.properties`
-```
-spring.datasource.url=jdbc:mysql://localhost:3306/ativ4
-spring.datasource.username=<user>
-spring.datasource.password=<password>
-# Em desenvolvimento, recria as tabelas
-spring.jpa.hibernate.ddl-auto=create-drop
-jwt.secret=<secret-key>
-jwt.expiration=3600000
-```
-
-### 3) Compile e execute
+### 2) Compile e execute
 ```bash
 mvn clean install
 mvn spring-boot:run
