@@ -18,16 +18,21 @@ import com.autobots.automanager.entidades.Telefone;
 import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.entidades.Veiculo;
 import com.autobots.automanager.entidades.Venda;
+import com.autobots.automanager.enumeracoes.Perfil;
 import com.autobots.automanager.enumeracoes.PerfilUsuario;
 import com.autobots.automanager.enumeracoes.TipoDocumento;
 import com.autobots.automanager.enumeracoes.TipoVeiculo;
 import com.autobots.automanager.repositorios.RepositorioEmpresa;
+import com.autobots.automanager.repositorios.RepositorioUsuario;
 
 @SpringBootApplication
 public class AutomanagerApplication implements CommandLineRunner {
 
 	@Autowired
 	private RepositorioEmpresa repositorioEmpresa;
+
+	@Autowired
+	private RepositorioUsuario repositorioUsuario;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AutomanagerApplication.class, args);
@@ -61,6 +66,8 @@ public class AutomanagerApplication implements CommandLineRunner {
 		funcionario.setNome("Pedro Alcântara de Bragança e Bourbon");
 		funcionario.setNomeSocial("Dom Pedro");
 		funcionario.getPerfis().add(PerfilUsuario.FUNCIONARIO);
+		// Nivel de acesso (roles) para o funcionario (vendedor por padrão)
+		funcionario.getNivelDeAcesso().add(Perfil.ROLE_VENDEDOR);
 
 		Email emailFuncionario = new Email();
 		emailFuncionario.setEmail("a@a.com");
@@ -104,7 +111,8 @@ public class AutomanagerApplication implements CommandLineRunner {
 		Usuario fornecedor = new Usuario();
 		fornecedor.setNome("Componentes varejo de partes automotivas ltda");
 		fornecedor.setNomeSocial("Loja do carro, vendas de componentes automotivos");
-		fornecedor.getPerfis().add(Perfil.ROLE_ADMIN);
+		fornecedor.getPerfis().add(PerfilUsuario.FORNECEDOR);
+		fornecedor.getNivelDeAcesso().add(Perfil.ROLE_GERENTE);
 
 		Email emailFornecedor = new Email();
 		emailFornecedor.setEmail("f@f.com");
@@ -113,7 +121,7 @@ public class AutomanagerApplication implements CommandLineRunner {
 
 		CredencialUsuarioSenha credencialFornecedor = new CredencialUsuarioSenha();
 		credencialFornecedor.setInativo(false);
-		credencialFornecedor.setNomeUsuario("admin");
+		credencialFornecedor.setNomeUsuario("fornecedor");
 		credencialFornecedor.setSenha("123456");
 		credencialFornecedor.setCriacao(new Date());
 		credencialFornecedor.setUltimoAcesso(new Date());
@@ -138,6 +146,40 @@ public class AutomanagerApplication implements CommandLineRunner {
 		fornecedor.setEndereco(enderecoFornecedor);
 
 		empresa.getUsuarios().add(fornecedor);
+		// Força a persistência do fornecedor para evitar perda no Set
+		repositorioUsuario.save(fornecedor);
+
+		// Usuario administrador separado
+		Usuario admin = new Usuario();
+		admin.setNome("Administrador do Sistema");
+		admin.setNomeSocial("Admin");
+		admin.getPerfis().add(PerfilUsuario.FUNCIONARIO);
+		admin.getNivelDeAcesso().add(Perfil.ROLE_ADMIN);
+
+		Email emailAdmin = new Email();
+		emailAdmin.setEmail("admin@a.com");
+		admin.getEmails().add(emailAdmin);
+
+		Endereco enderecoAdmin = new Endereco();
+		enderecoAdmin.setEstado("São Paulo");
+		enderecoAdmin.setCidade("São Paulo");
+		enderecoAdmin.setBairro("Centro");
+		enderecoAdmin.setRua("Av. São João");
+		enderecoAdmin.setNumero("00");
+		enderecoAdmin.setCodigoPostal("01035-000");
+		admin.setEndereco(enderecoAdmin);
+
+		CredencialUsuarioSenha credencialAdmin = new CredencialUsuarioSenha();
+		credencialAdmin.setInativo(false);
+		credencialAdmin.setNomeUsuario("admin");
+		credencialAdmin.setSenha("admin123");
+		credencialAdmin.setCriacao(new Date());
+		credencialAdmin.setUltimoAcesso(new Date());
+		admin.getCredenciais().add(credencialAdmin);
+
+		empresa.getUsuarios().add(admin);
+		// Força a persistência do admin para garantir inserção
+		repositorioUsuario.save(admin);
 		
 		Mercadoria rodaLigaLeve = new Mercadoria();
 		rodaLigaLeve.setCadastro(new Date());
@@ -157,6 +199,8 @@ public class AutomanagerApplication implements CommandLineRunner {
 		cliente.setNome("Pedro Alcântara de Bragança e Bourbon");
 		cliente.setNomeSocial("Dom pedro cliente");
 		cliente.getPerfis().add(PerfilUsuario.CLIENTE);
+		// Nivel de acesso (roles) para o cliente
+		cliente.getNivelDeAcesso().add(Perfil.ROLE_CLIENTE);
 
 		Email emailCliente = new Email();
 		emailCliente.setEmail("c@c.com");
