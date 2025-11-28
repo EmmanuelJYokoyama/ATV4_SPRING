@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
-import lombok.Data;
 
-@Data
 @Component
 public class ProvedorJwt {
 	@Value("${jwt.secret}")
@@ -34,4 +32,7 @@ public class ProvedorJwt {
 		Claims reivindicacoes = analisador.obterReivindicacoes();
 		return analisador.obterNomeUsuairo(reivindicacoes);
 	}
+
+    public Long getDuracao() { return duracao; }
+    public String getAssinatura() { return assinatura; }
 }

@@ -63,7 +63,7 @@ public class AutomanagerApplication implements CommandLineRunner {
 		funcionario.getPerfis().add(PerfilUsuario.FUNCIONARIO);
 
 		Email emailFuncionario = new Email();
-		emailFuncionario.setEndereco("a@a.com");
+		emailFuncionario.setEmail("a@a.com");
 
 		funcionario.getEmails().add(emailFuncionario);
 
@@ -104,16 +104,16 @@ public class AutomanagerApplication implements CommandLineRunner {
 		Usuario fornecedor = new Usuario();
 		fornecedor.setNome("Componentes varejo de partes automotivas ltda");
 		fornecedor.setNomeSocial("Loja do carro, vendas de componentes automotivos");
-		fornecedor.getPerfis().add(PerfilUsuario.FORNECEDOR);
+		fornecedor.getPerfis().add(Perfil.ROLE_ADMIN);
 
 		Email emailFornecedor = new Email();
-		emailFornecedor.setEndereco("f@f.com");
+		emailFornecedor.setEmail("f@f.com");
 
 		fornecedor.getEmails().add(emailFornecedor);
 
 		CredencialUsuarioSenha credencialFornecedor = new CredencialUsuarioSenha();
 		credencialFornecedor.setInativo(false);
-		credencialFornecedor.setNomeUsuario("dompedrofornecedor");
+		credencialFornecedor.setNomeUsuario("admin");
 		credencialFornecedor.setSenha("123456");
 		credencialFornecedor.setCriacao(new Date());
 		credencialFornecedor.setUltimoAcesso(new Date());
@@ -159,7 +159,7 @@ public class AutomanagerApplication implements CommandLineRunner {
 		cliente.getPerfis().add(PerfilUsuario.CLIENTE);
 
 		Email emailCliente = new Email();
-		emailCliente.setEndereco("c@c.com");
+		emailCliente.setEmail("c@c.com");
 
 		cliente.getEmails().add(emailCliente);
 

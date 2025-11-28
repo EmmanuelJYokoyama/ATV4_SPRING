@@ -65,8 +65,8 @@ public class EmailControle {
 			return new ResponseEntity<>("Email não econtrado...", HttpStatus.NOT_FOUND);
 		}else {
 			if(dados != null) {
-				if(dados.getEndereco() != null) {
-					email.setEndereco(dados.getEndereco());
+				if(dados.getEmail() != null) {
+					email.setEmail(dados.getEmail());
 				}
 				repositorio.save(email);
 			}

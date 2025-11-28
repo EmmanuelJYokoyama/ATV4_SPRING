@@ -19,11 +19,6 @@ import org.springframework.hateoas.RepresentationModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-@Data
-@EqualsAndHashCode(exclude = { "cliente", "funcionario", "veiculo", "servicos" })
 @Entity
 public class Venda extends RepresentationModel<Venda>{
 	@Id
@@ -46,4 +41,28 @@ public class Venda extends RepresentationModel<Venda>{
 	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
 	@JsonIgnoreProperties(value = {"proprietario" , "vendas"})
 	private Veiculo veiculo;
+
+	public Long getId() { return id; }
+	public void setId(Long id) { this.id = id; }
+
+	public Date getCadastro() { return cadastro; }
+	public void setCadastro(Date cadastro) { this.cadastro = cadastro; }
+
+	public String getIdentificacao() { return identificacao; }
+	public void setIdentificacao(String identificacao) { this.identificacao = identificacao; }
+
+	public Usuario getCliente() { return cliente; }
+	public void setCliente(Usuario cliente) { this.cliente = cliente; }
+
+	public Usuario getFuncionario() { return funcionario; }
+	public void setFuncionario(Usuario funcionario) { this.funcionario = funcionario; }
+
+	public Set<Mercadoria> getMercadorias() { return mercadorias; }
+	public void setMercadorias(Set<Mercadoria> mercadorias) { this.mercadorias = mercadorias; }
+
+	public Set<Servico> getServicos() { return servicos; }
+	public void setServicos(Set<Servico> servicos) { this.servicos = servicos; }
+
+	public Veiculo getVeiculo() { return veiculo; }
+	public void setVeiculo(Veiculo veiculo) { this.veiculo = veiculo; }
 }

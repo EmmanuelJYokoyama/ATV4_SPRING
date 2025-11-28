@@ -31,10 +31,10 @@ public class Seguranca extends WebSecurityConfigurerAdapter {
 	private ProvedorJwt provedorJwt;
 
 	private static final String[] rotasPublicas = {
-        "/login", "/cadastrar-usuario", "/credencial-usuario",
-        // Swagger/OpenAPI
-        "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html"
-    };
+		"/login", "/auth/login", "/cadastrar-usuario", "/credencial-usuario",
+		// Swagger/OpenAPI
+		"/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html"
+	};
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
